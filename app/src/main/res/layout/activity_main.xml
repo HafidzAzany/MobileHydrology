@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue_primary"
+    android:padding="32dp"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logo_image_main"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:padding="8dp"
+            android:src="@drawable/logo_hydrology"
+            android:contentDescription="Logo Hydrology"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Judul -->
+        <TextView
+            android:id="@+id/title_text_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Prediksi Kebutuhan Air"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/logo_image_main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Subjudul -->
+        <TextView
+            android:id="@+id/subtitle_text_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Masukkan data harian Anda untuk memprediksi kebutuhan air tubuh."
+            android:textColor="@color/text_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/title_text_main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ========== INPUT TEXT ========== -->
+
+        <!-- Usia -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/age_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Usia (Tahun)"
+            android:textColorHint="@color/text_color_secondary"
+            app:boxStrokeColor="@color/text_color_secondary"
+            app:layout_constraintTop_toBottomOf="@id/subtitle_text_main"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Berat Badan -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weight_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Berat Badan (kg)"
+            android:textColorHint="@color/text_color_secondary"
+            app:boxStrokeColor="@color/text_color_secondary"
+            app:layout_constraintTop_toBottomOf="@id/age_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Tinggi Badan -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/height_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Tinggi Badan (cm)"
+            android:textColorHint="@color/text_color_secondary"
+            app:boxStrokeColor="@color/text_color_secondary"
+            app:layout_constraintTop_toBottomOf="@id/weight_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Suhu Lingkungan -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/temp_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Suhu Lingkungan (°C)"
+            android:textColorHint="@color/text_color_secondary"
+            app:boxStrokeColor="@color/text_color_secondary"
+            app:layout_constraintTop_toBottomOf="@id/height_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTemp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Durasi Aktivitas -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Durasi Aktivitas (Jam)"
+            android:textColorHint="@color/text_color_secondary"
+            app:boxStrokeColor="@color/text_color_secondary"
+            app:layout_constraintTop_toBottomOf="@id/temp_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ========== SPINNER ========== -->
+
+        <!-- Kondisi Kesehatan -->
+        <TextView
+            android:id="@+id/label_health"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Kondisi Kesehatan"
+            android:textColor="@color/text_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/activity_input_layout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spHealth"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/text_color_secondary"
+            app:layout_constraintTop_toBottomOf="@id/label_health"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Heat Stress -->
+        <TextView
+            android:id="@+id/label_heat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Apakah cuaca terasa sangat panas (Heat Stress)?"
+            android:textColor="@color/text_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/spHealth"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spHeatStress"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@id/label_heat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Faktor Aktivitas -->
+        <TextView
+            android:id="@+id/label_activity_factor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Seberapa berat aktivitas fisik Anda?"
+            android:textColor="@color/text_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/spHeatStress"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spActivityFactor"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@id/label_activity_factor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Risiko Dehidrasi -->
+        <TextView
+            android:id="@+id/label_risk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Apakah Anda mudah haus / pernah dehidrasi?"
+            android:textColor="@color/text_color_secondary"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/spActivityFactor"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/spHydrationRisk"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@id/label_risk"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ========== BUTTON & RESULT ========== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPredict"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="Hitung Kebutuhan Air"
+            android:textColor="@color/dark_blue_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/cyan_accent"
+            app:cornerRadius="12dp"
+            app:layout_constraintTop_toBottomOf="@id/spHydrationRisk"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Hasil prediksi akan muncul di sini"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/btnPredict"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

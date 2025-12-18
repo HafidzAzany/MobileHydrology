@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  WARNA UTAMA APLIKASI  -->
+    <color name="dark_blue_primary">#0A1A2F</color> <!-- background utama -->
+    <color name="dark_blue_secondary">#152F4A</color> <!-- card/background elemen -->
+
+    <!--  WARNA AKSEN -->
+    <color name="cyan_accent">#4DD0E1</color> <!-- tombol utama -->
+    <color name="cyan_soft">#80DEEA</color> <!-- hover / secondary accent -->
+
+    <!--  WARNA TEKS -->
+    <color name="white">#FFFFFF</color>
+    <color name="text_color_secondary">#9EB3C9</color> <!-- teks abu lembut -->
+
+    <!--  WARNA ERROR / SUKSES -->
+    <color name="error_red">#FF5252</color>
+    <color name="success_green">#4CAF50</color>
+
+    <!--  BORDER / ICON / LAYOUT -->
+    <color name="stroke_light">#6A7A90</color>
+    <color name="divider_line">#384B63</color>
+
+    <color name="dark_bg">#071427</color>
+    <color name="light_text">#9AA4B2</color>
+    <color name="card_bg">#0F1E33</color>
+    <color name="blue_start">#00C4FF</color>
+    <color name="blue_end">#007BFF</color>
+
+    <color name="dark_blue">#071427</color>
+    <color name="light_gray">#9AA4B2</color>
+    <color name="input_bg">#102033</color>
+
+</resources>
