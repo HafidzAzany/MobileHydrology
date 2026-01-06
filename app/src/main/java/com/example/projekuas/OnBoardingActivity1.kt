@@ -31,7 +31,7 @@ class Onboarding1Activity : AppCompatActivity() {
             prefs.edit().putInt("age", age).apply()
 
 //            // TODO: Pindah ke Onboarding Step 2
-//            startActivity(Intent(this, Onboarding2Activity::class.java))
+            startActivity(Intent(this, Onboarding2Activity::class.java))
         }
 
         binding.tvSkip.setOnClickListener {

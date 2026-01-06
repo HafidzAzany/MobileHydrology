@@ -22,20 +22,39 @@
             </intent-filter>
         </activity>
 
-        <!-- LOGIN ACTIVITY -->
+        <!-- LOGIN -->
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
 
-        <!-- MAIN (dashboard) -->
+        <!-- Halaman Prediksi -->
+        <activity
+            android:name=".PredictionActivity"
+            android:exported="true" />
+
+        <!-- onboarding -->
+        <activity
+            android:name=".Onboarding1Activity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Onboarding2Activity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Onboarding3Activity"
+            android:exported="true" />
+
+        <activity
+            android:name=".Onboarding4Activity"
+            android:exported="true" />
+
+        <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />
 
-        <!-- Jika nanti ada onboarding -->
-        <activity
-            android:name=".Onboarding1Activity"
-            android:exported="true" />
+
 
     </application>
 
