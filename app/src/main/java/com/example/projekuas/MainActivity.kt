@@ -25,14 +25,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        // BUAT HAPUS DATA MINUM SEKALI
-
-//        getSharedPreferences("daily_progress", MODE_PRIVATE)
-//            .edit()
-//            .clear()
-//            .apply()
-
-        setDate()
         loadDailyProgress()
         updateUI()
 
@@ -51,15 +43,6 @@ class MainActivity : AppCompatActivity() {
         binding.navSettings.setOnClickListener {
             // nanti: SettingsActivity
         }
-
-        // kalau kamu mau tombol hitung ulang ke PredictionActivity:
-        // contoh kalau kamu buat buttonnya nanti
-        // startActivity(Intent(this, PredictionActivity::class.java))
-    }
-
-    private fun setDate() {
-        val sdf = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale("id", "ID"))
-        binding.tvDate.text = sdf.format(Date())
     }
 
     private fun loadDailyProgress() {
@@ -70,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         // kalau hari berubah → reset current
         if (lastDate == null || lastDate != todayKey) {
-            targetMl = prefs.getInt("target_ml", 2000) // target tetap (bisa dari onboarding/prediksi)
+            targetMl = prefs.getInt("target_ml", 2000)
             currentMl = 0
 
             prefs.edit()
@@ -83,7 +66,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun saveDailyProgress() {
         val prefs = getSharedPreferences("daily_progress", MODE_PRIVATE)
         val todayKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
@@ -94,7 +76,6 @@ class MainActivity : AppCompatActivity() {
             .putInt("current_ml", currentMl)
             .apply()
     }
-
 
     private fun updateUI() {
         val safeTarget = if (targetMl <= 0) 2000 else targetMl
@@ -113,7 +94,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.progressRing.progress = percent
     }
-
 
     private fun showAddDrinkBottomSheet() {
         val dialog = BottomSheetDialog(this)
@@ -144,7 +124,7 @@ class MainActivity : AppCompatActivity() {
 
         btnQuick250.setOnClickListener { selected = 250; updateAmount() }
         btnQuick500.setOnClickListener { selected = 500; updateAmount() }
-        btnQuickGlass.setOnClickListener { selected = 250; updateAmount() } // 1 gelas = 250ml (ubah kalau mau)
+        btnQuickGlass.setOnClickListener { selected = 250; updateAmount() }
 
         btnMinus50.setOnClickListener { selected -= 50; updateAmount() }
         btnPlus50.setOnClickListener { selected += 50; updateAmount() }
@@ -170,5 +150,4 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
-
 }

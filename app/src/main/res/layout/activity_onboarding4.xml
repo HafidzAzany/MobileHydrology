@@ -6,7 +6,7 @@
     android:background="@color/dark_blue_primary"
     android:padding="24dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintgit layout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -111,7 +111,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Durasi Aktivitas (Jam)"
+                    android:text="Durasi Aktivitas (Menit)"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="14sp"
@@ -123,7 +123,7 @@
                     android:layout_height="52dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/input_bg"
-                    android:hint="Contoh: 1.5"
+                    android:hint="Contoh: 60"
                     android:padding="14dp"
                     android:inputType="numberDecimal"
                     android:textColor="@color/white"
@@ -231,5 +231,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintgitlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -18,7 +18,7 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_google"
+            android:src="@drawable/logo_hydrology"
             android:contentDescription="icon" />
 
         <ImageButton
@@ -27,7 +27,7 @@
             android:layout_height="34dp"
             android:layout_alignParentEnd="true"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_google"
+            android:src="@drawable/ic_close"
             app:tint="#0F172A"
             android:contentDescription="close"/>
     </RelativeLayout>

@@ -157,7 +157,7 @@
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
-            android:text="Lanjutkan dengan Google"
+            android:text="    Lanjutkan dengan Google"
             android:textColor="@color/white"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:icon="@drawable/ic_google"
