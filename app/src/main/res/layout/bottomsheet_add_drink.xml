@@ -28,7 +28,7 @@
             android:layout_alignParentEnd="true"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_close"
-            app:tint="#0F172A"
+            app:tint="@color/white"
             android:contentDescription="close"/>
     </RelativeLayout>
 
@@ -38,7 +38,7 @@
         android:text="Catat Minum"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:textColor="#0F172A"
+        android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="10dp"/>
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Pilih jumlah air yang sudah diminum"
         android:textSize="12sp"
-        android:textColor="#64748B"
+        android:textColor="@color/text_color_secondary"
         android:gravity="center"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="14dp"/>
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="14dp"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="#F1F8FF"
+        app:cardBackgroundColor="@color/dark_blue_secondary"
         android:layout_marginBottom="16dp">
 
         <LinearLayout
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="Jumlah yang dipilih"
                 android:textSize="12sp"
-                android:textColor="#64748B"/>
+                android:textColor="@color/text_color_secondary"/>
 
             <TextView
                 android:id="@+id/tvAmount"
@@ -82,7 +82,7 @@
                 android:text="250"
                 android:textStyle="bold"
                 android:textSize="34sp"
-                android:textColor="#0F172A"
+                android:textColor="@color/white"
                 android:layout_marginTop="6dp"/>
 
             <TextView
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="ml"
                 android:textSize="12sp"
-                android:textColor="#64748B"/>
+                android:textColor="@color/text_color_secondary"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -101,7 +101,7 @@
         android:text="Pilihan Cepat"
         android:textStyle="bold"
         android:textSize="13sp"
-        android:textColor="#0F172A"
+        android:textColor="@color/white"
         android:layout_marginBottom="8dp"/>
 
     <LinearLayout
@@ -116,10 +116,13 @@
             android:layout_width="0dp"
             android:layout_height="54dp"
             android:layout_weight="1"
-            android:text="+ 250 ml"
+            android:text="+ 250"
             android:textAllCaps="false"
+            android:textColor="@color/cyan_accent"
+            app:strokeColor="@color/cyan_accent"
             app:cornerRadius="12dp"
-            android:layout_marginEnd="6dp"/>
+            android:layout_marginEnd="6dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnQuick500"
@@ -127,10 +130,13 @@
             android:layout_width="0dp"
             android:layout_height="54dp"
             android:layout_weight="1"
-            android:text="+ 500 ml"
+            android:text="+ 500"
             android:textAllCaps="false"
+            android:textColor="@color/cyan_accent"
+            app:strokeColor="@color/cyan_accent"
             app:cornerRadius="12dp"
-            android:layout_marginHorizontal="6dp"/>
+            android:layout_marginHorizontal="6dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnQuickGlass"
@@ -140,8 +146,11 @@
             android:layout_weight="1"
             android:text="+ 1 Gelas"
             android:textAllCaps="false"
+            android:textColor="@color/cyan_accent"
+            app:strokeColor="@color/cyan_accent"
             app:cornerRadius="12dp"
-            android:layout_marginStart="6dp"/>
+            android:layout_marginStart="6dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
     </LinearLayout>
 
     <!-- Adjust -->
@@ -151,7 +160,7 @@
         android:text="Sesuaikan Jumlah"
         android:textStyle="bold"
         android:textSize="13sp"
-        android:textColor="#0F172A"
+        android:textColor="@color/white"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"/>
 
@@ -169,8 +178,11 @@
             android:layout_weight="1"
             android:text="− 50 ml"
             android:textAllCaps="false"
+            android:textColor="@color/cyan_accent"
+            app:strokeColor="@color/cyan_accent"
             app:cornerRadius="12dp"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPlus50"
@@ -179,10 +191,12 @@
             android:layout_weight="1"
             android:text="+ 50 ml"
             android:textAllCaps="false"
+            android:textColor="@color/dark_blue_primary"
             app:cornerRadius="12dp"
-            app:backgroundTint="#1E6FF2"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="8dp"/>
+            android:background="@drawable/btn_login_gradient"
+            app:backgroundTint="@null"
+            android:layout_marginStart="8dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
     </LinearLayout>
 
     <!-- Action buttons -->
@@ -201,8 +215,11 @@
             android:layout_weight="1"
             android:text="Batal"
             android:textAllCaps="false"
+            android:textColor="@color/text_color_secondary"
+            app:strokeColor="@color/text_color_secondary"
             app:cornerRadius="12dp"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
@@ -211,10 +228,12 @@
             android:layout_weight="1"
             android:text="Simpan"
             android:textAllCaps="false"
+            android:textColor="@color/dark_blue_primary"
             app:cornerRadius="12dp"
-            app:backgroundTint="#1E6FF2"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="8dp"/>
+            android:background="@drawable/btn_login_gradient"
+            app:backgroundTint="@null"
+            android:layout_marginStart="8dp"
+            android:stateListAnimator="@animator/button_scale_animator"/>
     </LinearLayout>
 
 </LinearLayout>

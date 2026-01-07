@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E6FF2">
+    android:background="@color/dark_blue_primary">
 
     <!-- CONTENT -->
     <ScrollView
@@ -50,12 +50,11 @@
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <TextClock
+                    <TextView
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:format12Hour="EEEE, dd MMMM yyyy HH:mm:ss"
-                        android:format24Hour="EEEE, dd MMMM yyyy HH:mm:ss"
+                        android:text="Kamis, 8 Januari 2026"
                         android:textColor="#CFE3FF"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -67,7 +66,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="6dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="@color/card_bg"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="18dp">
 
@@ -78,7 +77,7 @@
                     android:padding="18dp"
                     android:gravity="center_horizontal">
 
-                    <!-- RING PROGRESS (versi aman) -->
+                    <!-- RING PROGRESS -->
                     <FrameLayout
                         android:layout_width="220dp"
                         android:layout_height="220dp"
@@ -93,8 +92,7 @@
                             android:indeterminate="false"
                             android:max="100"
                             android:progress="60"
-                            android:progressDrawable="@drawable/circle_progress"
-                            android:background="@drawable/circle_progress_bg" />
+                            android:progressDrawable="@drawable/circle_progress" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -109,7 +107,7 @@
                                 android:text="1200"
                                 android:textSize="34sp"
                                 android:textStyle="bold"
-                                android:textColor="#0F172A" />
+                                android:textColor="@color/white" />
 
                             <TextView
                                 android:id="@+id/tvSubMl"
@@ -117,7 +115,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="ml / 2000 ml"
                                 android:textSize="12sp"
-                                android:textColor="#64748B" />
+                                android:textColor="@color/text_color_secondary" />
 
                             <TextView
                                 android:id="@+id/tvPercent"
@@ -126,27 +124,36 @@
                                 android:text="60%"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
-                                android:textColor="#1E6FF2"
+                                android:textColor="@color/cyan_accent"
                                 android:layout_marginTop="6dp" />
                         </LinearLayout>
                     </FrameLayout>
 
                     <!-- ADD BUTTON -->
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddDrink"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="Catat Minum"
-                        android:src="@drawable/ic_add"
-                        app:backgroundTint="#1E6FF2"
-                        app:tint="@android:color/white"
-                        android:layout_marginTop="6dp" />
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconSize="28dp"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:background="@drawable/btn_login_gradient"
+                        app:backgroundTint="@null"
+                        app:iconTint="@color/dark_blue_primary"
+                        android:layout_marginTop="6dp"
+                        app:cornerRadius="32dp"
+                        android:stateListAnimator="@animator/button_scale_animator"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Catat Minum"
-                        android:textColor="#334155"
+                        android:textColor="@color/text_color_secondary"
                         android:textSize="13sp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="14dp" />
@@ -165,7 +172,7 @@
                             android:layout_weight="1"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="2dp"
-                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardBackgroundColor="@color/dark_blue_secondary"
                             android:layout_marginEnd="8dp">
 
                             <LinearLayout
@@ -178,7 +185,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Target Harian"
-                                    android:textColor="#64748B"
+                                    android:textColor="@color/text_color_secondary"
                                     android:textSize="12sp" />
 
                                 <TextView
@@ -186,7 +193,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="2000 ml"
-                                    android:textColor="#0F172A"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
                                     android:textSize="18sp"
                                     android:layout_marginTop="12dp" />
@@ -199,7 +206,7 @@
                             android:layout_weight="1"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="2dp"
-                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardBackgroundColor="@color/dark_blue_secondary"
                             android:layout_marginStart="8dp">
 
                             <LinearLayout
@@ -212,7 +219,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Tersisa"
-                                    android:textColor="#64748B"
+                                    android:textColor="@color/text_color_secondary"
                                     android:textSize="12sp" />
 
                                 <TextView
@@ -220,7 +227,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="800 ml"
-                                    android:textColor="#0F172A"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
                                     android:textSize="18sp"
                                     android:layout_marginTop="12dp" />
@@ -235,13 +242,13 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM NAV (simple, aman) -->
+    <!-- BOTTOM NAV -->
     <LinearLayout
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
+        android:background="@color/card_bg"
         android:orientation="horizontal"
         android:weightSum="4"
         android:paddingTop="8dp"
@@ -259,14 +266,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_home"
-                app:tint="#1E6FF2" />
+                app:tint="@color/cyan_accent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home"
                 android:textSize="11sp"
-                android:textColor="#1E6FF2"
+                android:textColor="@color/cyan_accent"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 
@@ -282,14 +289,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_history"
-                app:tint="#94A3B8" />
+                app:tint="@color/text_color_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Riwayat"
                 android:textSize="11sp"
-                android:textColor="#94A3B8"
+                android:textColor="@color/text_color_secondary"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 
@@ -305,14 +312,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_lightbulb"
-                app:tint="#94A3B8" />
+                app:tint="@color/text_color_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kiat"
                 android:textSize="11sp"
-                android:textColor="#94A3B8"
+                android:textColor="@color/text_color_secondary"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 
@@ -328,14 +335,14 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:src="@drawable/ic_settings"
-                app:tint="#94A3B8" />
+                app:tint="@color/text_color_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pengaturan"
                 android:textSize="11sp"
-                android:textColor="#94A3B8"
+                android:textColor="@color/text_color_secondary"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 

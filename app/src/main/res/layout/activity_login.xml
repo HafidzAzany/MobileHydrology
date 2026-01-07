@@ -119,6 +119,7 @@
             android:textSize="16sp"
             app:backgroundTint="@color/cyan_accent"
             app:cornerRadius="14dp"
+            android:stateListAnimator="@animator/button_scale_animator"
             app:layout_constraintTop_toBottomOf="@id/forgot_password_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -134,6 +135,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             app:cornerRadius="14dp"
             app:strokeColor="@color/cyan_accent"
+            android:stateListAnimator="@animator/button_scale_animator"
             app:layout_constraintTop_toBottomOf="@id/login_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -165,26 +167,10 @@
             app:iconGravity="textStart"
             app:strokeColor="@color/text_color_secondary"
             app:cornerRadius="14dp"
+            android:stateListAnimator="@animator/button_scale_animator"
             app:layout_constraintTop_toBottomOf="@id/or_separator_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
-<!--        &lt;!&ndash; LOGIN APPLE &ndash;&gt;-->
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/apple_login_button"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="56dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:text="Lanjutkan dengan Apple"-->
-<!--            android:textColor="@color/white"-->
-<!--            style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
-<!--            app:icon="@drawable/ic_apple"-->
-<!--            app:iconTint="@null"-->
-<!--            app:cornerRadius="14dp"-->
-<!--            app:strokeColor="@color/text_color_secondary"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/google_login_button"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
 
         <!-- REGISTER TEXT -->
         <LinearLayout

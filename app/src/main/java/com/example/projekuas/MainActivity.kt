@@ -2,6 +2,8 @@ package com.example.projekuas
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projekuas.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
@@ -15,6 +17,8 @@ import android.widget.Toast
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var dateRunnable: Runnable
 
     // progress minum harian
     private var targetMl = 2000
@@ -25,10 +29,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        startRealTimeDate()
         loadDailyProgress()
         updateUI()
 
-        // tombol tambah minum (sementara tambah 250ml)
+        // tombol tambah minum
         binding.btnAddDrink.setOnClickListener {
             showAddDrinkBottomSheet()
         }
@@ -43,6 +48,25 @@ class MainActivity : AppCompatActivity() {
         binding.navSettings.setOnClickListener {
             // nanti: SettingsActivity
         }
+    }
+
+    private fun startRealTimeDate() {
+        dateRunnable = object : Runnable {
+            override fun run() {
+                // Format: Hari, Tanggal Bulan Tahun Jam:Menit:Detik (Bahasa Indonesia)
+                val sdf = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss", Locale("id", "ID"))
+                binding.tvDate.text = sdf.format(Date())
+
+                // Update setiap 1 detik
+                handler.postDelayed(this, 1000)
+            }
+        }
+        handler.post(dateRunnable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(dateRunnable)
     }
 
     private fun loadDailyProgress() {
