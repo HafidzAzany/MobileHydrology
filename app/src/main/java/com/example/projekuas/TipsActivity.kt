@@ -1,6 +1,5 @@
 package com.example.projekuas
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -45,8 +44,10 @@ class TipsActivity : AppCompatActivity() {
         binding = ActivityTipsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupBottomNav(active = "com/example/projekuas/tips")
+        // ✅ Navbar global (layout_footer.xml)
+        FooterManager.setupFooter(this)
 
+        // Recycler
         binding.rvTips.layoutManager = LinearLayoutManager(this)
         binding.rvTips.adapter = adapter
 
@@ -75,55 +76,14 @@ class TipsActivity : AppCompatActivity() {
 
         val filtered = allTips.filter { tip ->
             val matchCategory = (selectedCategory == "Semua") || (tip.category == selectedCategory)
-            val matchQuery =
-                q.isEmpty() ||
-                        tip.title.lowercase().contains(q) ||
-                        tip.desc.lowercase().contains(q)
+            val matchQuery = q.isEmpty() ||
+                    tip.title.lowercase().contains(q) ||
+                    tip.desc.lowercase().contains(q)
 
             matchCategory && matchQuery
         }
 
         adapter.submit(filtered)
-
         binding.tvEmpty.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
-    }
-
-    private fun setupBottomNav(active: String) {
-        val bottom = findViewById<View>(R.id.bottomNavTips)
-
-        val navHome = bottom.findViewById<View>(R.id.navHome)
-        val navHistory = bottom.findViewById<View>(R.id.navHistory)
-        val navTips = bottom.findViewById<View>(R.id.navTips)
-        val navSettings = bottom.findViewById<View>(R.id.navSettings)
-
-        navHome.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-        navHistory.setOnClickListener {
-            startActivity(Intent(this, HistoryActivity::class.java))
-            finish()
-        }
-        navTips.setOnClickListener {
-            // sudah di sini
-        }
-        navSettings.setOnClickListener {
-            // nanti kalau sudah ada SettingsActivity
-            // startActivity(Intent(this, SettingsActivity::class.java))
-        }
-
-        // highlight active tab
-        val cyan = getColor(R.color.cyan_accent)
-        val gray = getColor(R.color.text_color_secondary)
-
-        fun setActive(iconId: Int, textId: Int, isActive: Boolean) {
-            bottom.findViewById<android.widget.ImageView>(iconId).setColorFilter(if (isActive) cyan else gray)
-            bottom.findViewById<android.widget.TextView>(textId).setTextColor(if (isActive) cyan else gray)
-        }
-
-        setActive(R.id.iconHome, R.id.textHome, active == "home")
-        setActive(R.id.iconHistory, R.id.textHistory, active == "history")
-        setActive(R.id.iconTips, R.id.textTips, active == "com/example/projekuas/tips")
-        setActive(R.id.iconSettings, R.id.textSettings, active == "settings")
     }
 }

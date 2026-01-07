@@ -10,6 +10,7 @@
         android:id="@+id/scrollContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavLayout"
         android:padding="18dp">
 
         <LinearLayout
@@ -488,9 +489,10 @@
 
     <!-- Bottom Nav -->
     <include
-        layout="@layout/bottom_nav"
+        android:id="@+id/bottomNavLayout"
+        layout="@layout/layout_footer"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="70dp"/>
 
 </RelativeLayout>

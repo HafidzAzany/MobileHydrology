@@ -6,11 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [
-        DailyProgressEntity::class,
-        DrinkLogEntity::class
-    ],
-    version = 2,
+    entities = [DailyProgressEntity::class, DrinkLogEntity::class],
+    version = 2, // naikkan versinya (misal dari 1 ke 2)
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -23,12 +20,12 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: Room.databaseBuilder(
+                Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "hydrology_db"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration() // sementara biar gak crash
                     .build()
                     .also { INSTANCE = it }
             }

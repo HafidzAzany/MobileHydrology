@@ -15,58 +15,55 @@ object FooterManager {
         val navTips = activity.findViewById<LinearLayout>(R.id.navTips)
         val navSettings = activity.findViewById<LinearLayout>(R.id.navSettings)
 
-        // Reset state & Highlight current page
+        // highlight current page
         highlightCurrentPage(activity)
 
         navHome?.setOnClickListener {
             if (activity !is MainActivity) {
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-                activity.startActivity(intent)
+                activity.startActivity(Intent(activity, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                })
             }
         }
 
         navHistory?.setOnClickListener {
-            // Uncomment when HistoryActivity is ready
-            /*
             if (activity !is HistoryActivity) {
-                val intent = Intent(activity, HistoryActivity::class.java)
-                activity.startActivity(intent)
+                activity.startActivity(Intent(activity, HistoryActivity::class.java))
             }
-            */
         }
 
         navTips?.setOnClickListener {
-            // Uncomment when TipsActivity is ready
-            /*
             if (activity !is TipsActivity) {
-                val intent = Intent(activity, TipsActivity::class.java)
-                activity.startActivity(intent)
+                activity.startActivity(Intent(activity, TipsActivity::class.java))
             }
-            */
         }
 
         navSettings?.setOnClickListener {
             if (activity !is SettingsActivity) {
-                val intent = Intent(activity, SettingsActivity::class.java)
-                activity.startActivity(intent)
+                activity.startActivity(Intent(activity, SettingsActivity::class.java))
             }
         }
     }
 
     private fun highlightCurrentPage(activity: Activity) {
-        val accentColor = ContextCompat.getColor(activity, R.color.cyan_accent)
-        val defaultColor = ContextCompat.getColor(activity, R.color.text_color_secondary)
+        val accent = ContextCompat.getColor(activity, R.color.cyan_accent)
+        val gray = ContextCompat.getColor(activity, R.color.text_color_secondary)
+
+        // reset all to gray dulu
+        setItemColor(activity, R.id.imgHome, R.id.tvHome, gray)
+        setItemColor(activity, R.id.imgHistory, R.id.tvHistory, gray)
+        setItemColor(activity, R.id.imgTips, R.id.tvTips, gray)
+        setItemColor(activity, R.id.imgSettings, R.id.tvSettings, gray)
 
         when (activity) {
-            is MainActivity -> setItemActive(activity, R.id.imgHome, R.id.tvHome, accentColor)
-            is SettingsActivity -> setItemActive(activity, R.id.imgSettings, R.id.tvSettings, accentColor)
-            // is HistoryActivity -> setItemActive(activity, R.id.imgHistory, R.id.tvHistory, accentColor)
-            // is TipsActivity -> setItemActive(activity, R.id.imgTips, R.id.tvTips, accentColor)
+            is MainActivity -> setItemColor(activity, R.id.imgHome, R.id.tvHome, accent)
+            is HistoryActivity -> setItemColor(activity, R.id.imgHistory, R.id.tvHistory, accent)
+            is TipsActivity -> setItemColor(activity, R.id.imgTips, R.id.tvTips, accent)
+            is SettingsActivity -> setItemColor(activity, R.id.imgSettings, R.id.tvSettings, accent)
         }
     }
 
-    private fun setItemActive(activity: Activity, iconId: Int, textId: Int, color: Int) {
+    private fun setItemColor(activity: Activity, iconId: Int, textId: Int, color: Int) {
         activity.findViewById<ImageView>(iconId)?.setColorFilter(color)
         activity.findViewById<TextView>(textId)?.setTextColor(color)
     }

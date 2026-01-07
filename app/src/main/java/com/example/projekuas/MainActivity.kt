@@ -43,16 +43,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // ✅ navbar/footer (punya teman)
         FooterManager.setupFooter(this)
 
-        // ✅ Room init
+        //  navbar/footer (punya teman)
+        FooterManager.setupFooter(this)
+
+        //  Room init
         db = AppDatabase.getInstance(this)
 
-        // ✅ Tanggal real-time
+        //  Tanggal real-time
         startRealTimeDate()
 
-        // ✅ Load progress dari Room untuk hari ini
+        //  Load progress dari Room untuk hari ini
         loadDailyProgressFromRoom()
 
         binding.btnAddDrink.setOnClickListener {
