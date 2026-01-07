@@ -1,10 +1,8 @@
 package com.example.projekuas
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -45,39 +43,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val bottom = binding.root.findViewById<View>(R.id.bottomNav)
-        // Pastikan ID iconHome dan textHome ada di layout bottom_nav.xml Anda
-        // Jika error null pointer, cek kembali ID di layout include
-        try {
-            bottom.findViewById<android.widget.ImageView>(R.id.iconHome)?.setColorFilter(getColor(R.color.cyan_accent))
-            bottom.findViewById<android.widget.TextView>(R.id.textHome)?.setTextColor(getColor(R.color.cyan_accent))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        // ✅ navbar/footer (punya teman)
+        FooterManager.setupFooter(this)
 
+        // ✅ Room init
         db = AppDatabase.getInstance(this)
 
-        // Tanggal real-time (jam:menit:detik)
+        // ✅ Tanggal real-time
         startRealTimeDate()
 
-        // Load progress dari Room untuk hari ini
+        // ✅ Load progress dari Room untuk hari ini
         loadDailyProgressFromRoom()
 
         binding.btnAddDrink.setOnClickListener {
             showAddDrinkBottomSheet()
-        }
-
-        // click listener nav
-        bottom.findViewById<View>(R.id.navHistory).setOnClickListener {
-            startActivity(Intent(this, HistoryActivity::class.java))
-        }
-
-        bottom.findViewById<View>(R.id.navTips).setOnClickListener {
-             startActivity(Intent(this, TipsActivity::class.java))
-        }
-
-        bottom.findViewById<View>(R.id.navSettings).setOnClickListener {
-            // startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
@@ -86,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 val sdf = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss", Locale("id", "ID"))
                 binding.tvDate.text = sdf.format(Date())
-                handler.postDelayed(this, 1000) // update tiap 1 detik
+                handler.postDelayed(this, 1000)
             }
         }
         handler.post(dateRunnable)
@@ -97,9 +76,8 @@ class MainActivity : AppCompatActivity() {
         handler.removeCallbacks(dateRunnable)
     }
 
-    private fun todayKey(): String {
-        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-    }
+    private fun todayKey(): String =
+        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
     private fun loadDailyProgressFromRoom() {
         val key = todayKey()
@@ -109,14 +87,12 @@ class MainActivity : AppCompatActivity() {
             val data = dao.getByDate(key)
 
             if (data == null) {
-                // kalau belum ada record hari ini -> buat baru
                 val newData = DailyProgressEntity(
                     dateKey = key,
-                    targetMl = 2000,   // default
+                    targetMl = 2000,
                     currentMl = 0
                 )
                 dao.upsert(newData)
-
                 targetMl = newData.targetMl
                 currentMl = newData.currentMl
             } else {
@@ -161,7 +137,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAddDrinkBottomSheet() {
-        val dialog = BottomSheetDialog(this)
+        val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottomsheet_add_drink, null)
         dialog.setContentView(view)
 
@@ -178,7 +154,6 @@ class MainActivity : AppCompatActivity() {
         val btnCancel = view.findViewById<Button>(R.id.btnCancel)
         val btnSave = view.findViewById<Button>(R.id.btnSave)
 
-        // default awal
         var selected = 250
         tvAmount.text = selected.toString()
 
@@ -197,23 +172,21 @@ class MainActivity : AppCompatActivity() {
         btnClose.setOnClickListener { dialog.dismiss() }
         btnCancel.setOnClickListener { dialog.dismiss() }
 
-        // --- BAGIAN UTAMA YANG DIPERBAIKI ---
         btnSave.setOnClickListener {
             if (selected <= 0) {
                 Toast.makeText(this, "Jumlah minum belum dipilih.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // 1. Update Memory & UI
+            // update memory + UI
             currentMl += selected
             if (currentMl > targetMl) currentMl = targetMl
+            updateUI()
 
-            updateUI() // Update UI langsung biar responsif
-
-            // 2. Simpan Progress Harian (Async)
+            // simpan progress harian
             saveDailyProgressToRoom()
 
-            // 3. Simpan Log Minum ke Riwayat (Async dengan LifecycleScope)
+            // simpan log riwayat
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     db.drinkLogDao().insert(

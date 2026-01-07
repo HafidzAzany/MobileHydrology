@@ -36,15 +36,12 @@
         <activity
             android:name=".Onboarding1Activity"
             android:exported="true" />
-
         <activity
             android:name=".Onboarding2Activity"
             android:exported="true" />
-
         <activity
             android:name=".Onboarding3Activity"
             android:exported="true" />
-
         <activity
             android:name=".Onboarding4Activity"
             android:exported="true" />
@@ -57,16 +54,17 @@
         <!-- History -->
         <activity
             android:name=".HistoryActivity"
-            android:exported="true " />
+            android:exported="true" />
 
         <!-- Tips -->
         <activity
             android:name=".TipsActivity"
-            android:exported="false " />
+            android:exported="true" />
 
-
-
-
+        <!-- SettingsActivity -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true" />
 
     </application>
 
