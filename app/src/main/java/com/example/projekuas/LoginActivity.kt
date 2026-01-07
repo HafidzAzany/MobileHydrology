@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (email == "demo@hydrology.com" && password == "demo123") {
             Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, PredictionActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
             Toast.makeText(this, "Email atau kata sandi salah", Toast.LENGTH_SHORT).show()

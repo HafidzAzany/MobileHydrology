@@ -1,5 +1,10 @@
 package com.example.projekuas
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.core.app.ActivityCompat
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -43,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        requestNotifPermissionIfNeeded()
+
         FooterManager.setupFooter(this)
 
         //  navbar/footer (punya teman)
@@ -60,6 +67,26 @@ class MainActivity : AppCompatActivity() {
         binding.btnAddDrink.setOnClickListener {
             showAddDrinkBottomSheet()
         }
+
+        binding.btnGoPrediction.setOnClickListener {
+            startActivity(Intent(this, PredictionActivity::class.java))
+            binding.btnGoPrediction.setOnClickListener {
+                NotificationHelper.showSimple(
+                    this,
+                    "Hydrology",
+                    "Waktunya minum air 💧"
+                )
+            }
+
+        }
+
+        val prefs = getSharedPreferences("hydr_prefs", MODE_PRIVATE)
+        val enabled = prefs.getBoolean("reminder_enabled", false)
+        val interval = prefs.getInt("reminder_interval_hours", 2)
+        if (enabled) {
+            com.example.projekuas.notifications.ReminderScheduler.start(this, interval.toLong())
+        }
+
     }
 
     private fun startRealTimeDate() {
@@ -211,4 +238,22 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+    private fun requestNotifPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= 33) {
+            val granted = ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+
+            if (!granted) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    2001
+                )
+            }
+        }
+    }
+
 }
