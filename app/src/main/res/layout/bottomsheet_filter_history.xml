@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="18dp"
+    android:background="@drawable/bs_rounded_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter Riwayat"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close"
+            app:tint="@android:color/white"
+            android:contentDescription="Close" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Urutkan berdasarkan"
+        android:textColor="#8FB3D9"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNewest"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="Terbaru"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:strokeColor="@color/cyan_accent"
+        app:strokeWidth="1dp"
+        app:cornerRadius="14dp"
+        android:backgroundTint="#0F1B33"
+        app:icon="@drawable/ic_check"
+        app:iconGravity="textEnd"
+        app:iconTint="@color/cyan_accent"
+        app:iconPadding="0dp"
+        app:iconSize="18dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOldest"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:text="Terlama"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:strokeColor="#1B3C5E"
+        app:strokeWidth="1dp"
+        app:cornerRadius="14dp"
+        android:backgroundTint="#0F1B33" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBiggest"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:text="Volume Terbesar"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:strokeColor="#1B3C5E"
+        app:strokeWidth="1dp"
+        app:cornerRadius="14dp"
+        android:backgroundTint="#0F1B33" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSmallest"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:text="Volume Terkecil"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:strokeColor="#1B3C5E"
+        app:strokeWidth="1dp"
+        app:cornerRadius="14dp"
+        android:backgroundTint="#0F1B33" />
+
+</LinearLayout>

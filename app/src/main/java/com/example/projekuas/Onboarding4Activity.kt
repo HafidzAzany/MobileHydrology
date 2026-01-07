@@ -100,7 +100,7 @@ class Onboarding4Activity : AppCompatActivity() {
             Toast.makeText(this, "Suhu tidak valid!", Toast.LENGTH_SHORT).show()
             return
         }
-        if (activityDuration < 0 || activityDuration > 24) {
+        if (activityDuration < 0 || activityDuration > 1440) {
             Toast.makeText(this, "Durasi aktivitas tidak valid!", Toast.LENGTH_SHORT).show()
             return
         }

@@ -4,61 +4,89 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
-import com.example.projekuas.databinding.ActivityMainBinding
-import java.text.SimpleDateFormat
-import java.util.*
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import android.widget.ImageButton
+import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.projekuas.data.AppDatabase
+import com.example.projekuas.data.DailyProgressEntity
+import com.example.projekuas.data.DrinkLogEntity
+import com.example.projekuas.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val handler = Handler(Looper.getMainLooper())
-    private lateinit var dateRunnable: Runnable
 
-    // progress minum harian
+    // Room
+    private val ioScope = CoroutineScope(Dispatchers.IO)
+    private lateinit var db: AppDatabase
+
+    // progress minum harian (state di memory)
     private var targetMl = 2000
     private var currentMl = 0
+
+    // realtime date
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var dateRunnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        startRealTimeDate()
-        loadDailyProgress()
-        updateUI()
+        val bottom = binding.root.findViewById<View>(R.id.bottomNav)
+        // Pastikan ID iconHome dan textHome ada di layout bottom_nav.xml Anda
+        // Jika error null pointer, cek kembali ID di layout include
+        try {
+            bottom.findViewById<android.widget.ImageView>(R.id.iconHome)?.setColorFilter(getColor(R.color.cyan_accent))
+            bottom.findViewById<android.widget.TextView>(R.id.textHome)?.setTextColor(getColor(R.color.cyan_accent))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
-        // tombol tambah minum
+        db = AppDatabase.getInstance(this)
+
+        // Tanggal real-time (jam:menit:detik)
+        startRealTimeDate()
+
+        // Load progress dari Room untuk hari ini
+        loadDailyProgressFromRoom()
+
         binding.btnAddDrink.setOnClickListener {
             showAddDrinkBottomSheet()
         }
 
-        // klik nav (sementara)
-        binding.navHistory.setOnClickListener {
-            // nanti: HistoryActivity
+        // click listener nav
+        bottom.findViewById<View>(R.id.navHistory).setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
-        binding.navTips.setOnClickListener {
-            // nanti: TipsActivity
+
+        bottom.findViewById<View>(R.id.navTips).setOnClickListener {
+             startActivity(Intent(this, TipsActivity::class.java))
         }
-        binding.navSettings.setOnClickListener {
-            // nanti: SettingsActivity
+
+        bottom.findViewById<View>(R.id.navSettings).setOnClickListener {
+            // startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
     private fun startRealTimeDate() {
         dateRunnable = object : Runnable {
             override fun run() {
-                // Format: Hari, Tanggal Bulan Tahun Jam:Menit:Detik (Bahasa Indonesia)
                 val sdf = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss", Locale("id", "ID"))
                 binding.tvDate.text = sdf.format(Date())
-
-                // Update setiap 1 detik
-                handler.postDelayed(this, 1000)
+                handler.postDelayed(this, 1000) // update tiap 1 detik
             }
         }
         handler.post(dateRunnable)
@@ -69,42 +97,55 @@ class MainActivity : AppCompatActivity() {
         handler.removeCallbacks(dateRunnable)
     }
 
-    private fun loadDailyProgress() {
-        val prefs = getSharedPreferences("daily_progress", MODE_PRIVATE)
+    private fun todayKey(): String {
+        return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    }
 
-        val todayKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        val lastDate = prefs.getString("last_date", null)
+    private fun loadDailyProgressFromRoom() {
+        val key = todayKey()
 
-        // kalau hari berubah → reset current
-        if (lastDate == null || lastDate != todayKey) {
-            targetMl = prefs.getInt("target_ml", 2000)
-            currentMl = 0
+        ioScope.launch {
+            val dao = db.dailyProgressDao()
+            val data = dao.getByDate(key)
 
-            prefs.edit()
-                .putString("last_date", todayKey)
-                .putInt("current_ml", currentMl)
-                .apply()
-        } else {
-            targetMl = prefs.getInt("target_ml", 2000)
-            currentMl = prefs.getInt("current_ml", 0)
+            if (data == null) {
+                // kalau belum ada record hari ini -> buat baru
+                val newData = DailyProgressEntity(
+                    dateKey = key,
+                    targetMl = 2000,   // default
+                    currentMl = 0
+                )
+                dao.upsert(newData)
+
+                targetMl = newData.targetMl
+                currentMl = newData.currentMl
+            } else {
+                targetMl = data.targetMl
+                currentMl = data.currentMl
+            }
+
+            withContext(Dispatchers.Main) {
+                updateUI()
+            }
         }
     }
 
-    private fun saveDailyProgress() {
-        val prefs = getSharedPreferences("daily_progress", MODE_PRIVATE)
-        val todayKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-
-        prefs.edit()
-            .putString("last_date", todayKey)
-            .putInt("target_ml", targetMl)
-            .putInt("current_ml", currentMl)
-            .apply()
+    private fun saveDailyProgressToRoom() {
+        val key = todayKey()
+        ioScope.launch {
+            db.dailyProgressDao().upsert(
+                DailyProgressEntity(
+                    dateKey = key,
+                    targetMl = targetMl,
+                    currentMl = currentMl
+                )
+            )
+        }
     }
 
     private fun updateUI() {
         val safeTarget = if (targetMl <= 0) 2000 else targetMl
         val safeCurrent = currentMl.coerceIn(0, safeTarget)
-
         val percent = (safeCurrent * 100 / safeTarget).coerceIn(0, 100)
 
         binding.tvCurrentMl.text = safeCurrent.toString()
@@ -156,17 +197,38 @@ class MainActivity : AppCompatActivity() {
         btnClose.setOnClickListener { dialog.dismiss() }
         btnCancel.setOnClickListener { dialog.dismiss() }
 
+        // --- BAGIAN UTAMA YANG DIPERBAIKI ---
         btnSave.setOnClickListener {
             if (selected <= 0) {
                 Toast.makeText(this, "Jumlah minum belum dipilih.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // 1. Update Memory & UI
             currentMl += selected
             if (currentMl > targetMl) currentMl = targetMl
 
-            saveDailyProgress()
-            updateUI()
+            updateUI() // Update UI langsung biar responsif
+
+            // 2. Simpan Progress Harian (Async)
+            saveDailyProgressToRoom()
+
+            // 3. Simpan Log Minum ke Riwayat (Async dengan LifecycleScope)
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    db.drinkLogDao().insert(
+                        DrinkLogEntity(
+                            dateKey = todayKey(),
+                            timeMillis = System.currentTimeMillis(),
+                            amountMl = selected,
+                            source = "manual",
+                            timestamp = System.currentTimeMillis()
+                        )
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
 
             Toast.makeText(this, "+$selected ml dicatat", Toast.LENGTH_SHORT).show()
             dialog.dismiss()

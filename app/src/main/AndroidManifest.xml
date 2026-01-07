@@ -54,6 +54,18 @@
             android:name=".MainActivity"
             android:exported="true" />
 
+        <!-- History -->
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="true " />
+
+        <!-- Tips -->
+        <activity
+            android:name=".TipsActivity"
+            android:exported="false " />
+
+
+
 
 
     </application>
