@@ -10,7 +10,7 @@
         android:id="@+id/scrollContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottomNav"
+        android:layout_above="@id/bottomNavLayout"
         android:padding="18dp">
 
         <LinearLayout
@@ -242,110 +242,12 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM NAV -->
-    <LinearLayout
-        android:id="@+id/bottomNav"
+    <!-- REUSABLE FOOTER -->
+    <include
+        android:id="@+id/bottomNavLayout"
+        layout="@layout/layout_footer"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/card_bg"
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
-
-        <LinearLayout
-            android:id="@+id/navHome"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_home"
-                app:tint="@color/cyan_accent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textSize="11sp"
-                android:textColor="@color/cyan_accent"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navHistory"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_history"
-                app:tint="@color/text_color_secondary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Riwayat"
-                android:textSize="11sp"
-                android:textColor="@color/text_color_secondary"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navTips"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_lightbulb"
-                app:tint="@color/text_color_secondary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kiat"
-                android:textSize="11sp"
-                android:textColor="@color/text_color_secondary"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navSettings"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_settings"
-                app:tint="@color/text_color_secondary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pengaturan"
-                android:textSize="11sp"
-                android:textColor="@color/text_color_secondary"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

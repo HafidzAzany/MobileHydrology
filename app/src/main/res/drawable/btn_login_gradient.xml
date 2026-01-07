@@ -3,19 +3,19 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#0097C7"
-                android:endColor="#6DC5DC"
+                android:startColor="@color/blue_start"
+                android:endColor="@color/blue_end"
                 android:angle="0" />
-            <corners android:radius="16dp" />
+            <corners android:radius="14dp" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#00ADEF"
-                android:endColor="#88D9F1"
+                android:startColor="@color/blue_start"
+                android:endColor="@color/blue_end"
                 android:angle="0" />
-            <corners android:radius="16dp" />
+            <corners android:radius="14dp" />
         </shape>
     </item>
 </selector>

@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Setup Footer Navigation
+        FooterManager.setupFooter(this)
+
         startRealTimeDate()
         loadDailyProgress()
         updateUI()
@@ -36,17 +39,6 @@ class MainActivity : AppCompatActivity() {
         // tombol tambah minum
         binding.btnAddDrink.setOnClickListener {
             showAddDrinkBottomSheet()
-        }
-
-        // klik nav (sementara)
-        binding.navHistory.setOnClickListener {
-            // nanti: HistoryActivity
-        }
-        binding.navTips.setOnClickListener {
-            // nanti: TipsActivity
-        }
-        binding.navSettings.setOnClickListener {
-            // nanti: SettingsActivity
         }
     }
 
@@ -120,7 +112,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAddDrinkBottomSheet() {
-        val dialog = BottomSheetDialog(this)
+        // Menggunakan style transparan yang sudah dibuat sebelumnya
+        val dialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottomsheet_add_drink, null)
         dialog.setContentView(view)
 
